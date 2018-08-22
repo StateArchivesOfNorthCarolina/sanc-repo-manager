@@ -1,14 +1,13 @@
 import os
 from shutil import copyfile
-from collections import OrderedDict
 from pathlib import Path
 import filetype
 import re
-from mover_classes.ConvertImgFile import ConvertImgFile
-from mover_classes.ConvertAvFile import ConvertAudioFile
-from mover_classes.ConvertAvFile import ConvertVideoFile
-from mover_classes.ConvertDocumentFile import ConvertDocumentFile
-from mover_classes.ConvertDocumentFile import ConvertNoAccessFile
+from bulk_mover.mover_classes.ConvertImgFile import ConvertImgFile
+from bulk_mover.mover_classes.ConvertAvFile import ConvertAudioFile
+from bulk_mover.mover_classes.ConvertAvFile import ConvertVideoFile
+from bulk_mover.mover_classes.ConvertDocumentFile import ConvertDocumentFile
+from bulk_mover.mover_classes.ConvertDocumentFile import ConvertNoAccessFile
 
 
 class PathMunger:

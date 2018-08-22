@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from move_db.MoverDBs import ProjectID, StoPDB, StoPparts, Errors, FakeAccessions, OrigPathDups, PtoADB, PtoAFiles, PtoAError
+from bulk_mover.move_db.MoverDBs import ProjectID, StoPDB, StoPparts, Errors, FakeAccessions, OrigPathDups, PtoADB, PtoAFiles, PtoAError
 
 
 class MoveProvider:

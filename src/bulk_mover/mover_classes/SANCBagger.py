@@ -1,5 +1,4 @@
 import bagit
-import logging
 import os
 
 

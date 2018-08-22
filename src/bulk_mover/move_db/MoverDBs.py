@@ -113,12 +113,12 @@ def create_tables():
          VerifiedPaths, Notes]
     for t in l:
         try:
-            db.create_table(t)
+            db.create_tables(t)
         except OperationalError as e:
             pass
 
 
-create_tables()
+#create_tables()
 
 
 def test():

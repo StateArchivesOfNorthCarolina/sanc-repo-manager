@@ -7,8 +7,8 @@ import logging.config
 from datetime import date
 from datetime import datetime
 from peewee import *
-from mover_classes.PathMunger import PathMunger
-from mover_classes.ConvertImgFile import ConvertImgError
+from bulk_mover.mover_classes.PathMunger import PathMunger
+from bulk_mover.mover_classes.ConvertImgFile import ConvertImgError
 import re
 
 

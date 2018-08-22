@@ -1,9 +1,8 @@
-import os
 import sys
 from pathlib import Path
-from move_db.MoverDBs import *
+from bulk_mover.move_db.MoverDBs import *
 from datetime import datetime
-from mover_classes.Item import PItem
+from bulk_mover.mover_classes.Item import PItem
 
 
 class SqlProjectBuilder:

@@ -1,10 +1,11 @@
 import os
 from datetime import datetime
 from pathlib import Path
-from move_db.move_provider import MoveProvider
-from move_db.PathProvider import PathProvider
-from move_db.MoverDBs import ProjectID, StoPDB, PtoADB, PtoAFiles, PtoAError
-from bulk_p2a import PMoverBase, PathMunger
+from bulk_mover.move_db.move_provider import MoveProvider
+from bulk_mover.move_db.PathProvider import PathProvider
+from bulk_mover.move_db.MoverDBs import ProjectID, StoPDB, PtoADB, PtoAFiles, PtoAError
+from bulk_mover.bulk_p2a import PMoverBase
+from bulk_mover.mover_classes import PathMunger
 from tqdm import tqdm
 
 

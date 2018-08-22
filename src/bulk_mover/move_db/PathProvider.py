@@ -1,4 +1,4 @@
-from move_db.MoverDBs import ProjectID, StoPDB, StoPparts, Errors, FakeAccessions, OrigPathDups, PtoADB, PtoAFiles, PtoAError
+from . MoverDBs import ProjectID, StoPDB, StoPparts, Errors, FakeAccessions, OrigPathDups, PtoADB, PtoAFiles, PtoAError
 from pathlib import Path
 import os
 from datetime import datetime

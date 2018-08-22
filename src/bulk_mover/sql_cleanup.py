@@ -1,11 +1,12 @@
 from pathlib import Path
-from move_db.MoverDBs import *
-from mover_classes.SANCBagger import SANCBagger
+from bulk_mover.move_db.MoverDBs import *
+from bulk_mover.mover_classes.SANCBagger import SANCBagger
 from datetime import datetime
 import sys
 from shutil import rmtree
 from hashlib import md5
 import re
+
 
 class SqlCleanup:
 
@@ -83,7 +84,6 @@ class SqlCleanup:
             self.prj.project_completed = True
             self.prj.save()
 
-
     def _check_for_equiv(self, s: Path, d: Path):
         sm = s / self._get_manifest_at_location(s)  # type: Path
         dm = d / self._get_manifest_at_location(d)  # type: Path
@@ -101,7 +101,6 @@ class SqlCleanup:
         for f in p.iterdir():
             if re.match("^manifest-.*", str(f.name)):
                 return str(f.name)
-
 
 
 def project_select() -> ProjectID:

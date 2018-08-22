@@ -1,5 +1,5 @@
 from pathlib import Path
-from move_db.MoverDBs import StoPDB
+from bulk_mover.move_db.MoverDBs import StoPDB
 
 
 def stop_index_report():

@@ -10,12 +10,12 @@ import logging.config
 from bagit import BagValidationError
 import time
 
-from mover_classes.Item import PItem
-from Scripts.sanc_bagger import SANCBagger
-from mover_classes.CopyProgress import CopyProgress
-from mover_classes.PathUnique import PathUnique
-from move_db.MoverDBs import ProjectID, StoPDB, StoPparts, Errors, FakeAccessions, OrigPathDups
-from move_db.move_provider import MoveProvider
+from bulk_mover.mover_classes.Item import PItem
+from bulk_mover.mover_classes.SANCBagger import SANCBagger
+from bulk_mover.mover_classes.CopyProgress import CopyProgress
+from bulk_mover.mover_classes.PathUnique import PathUnique
+from bulk_mover.move_db.MoverDBs import ProjectID, StoPDB, StoPparts, Errors, FakeAccessions, OrigPathDups
+from bulk_mover.move_db.move_provider import MoveProvider
 
 
 class SqlMover:
