@@ -17,7 +17,7 @@ class SqlCleanup:
     def check_stopdbs(self):
         query = (StoPDB
                  .select()
-                 .where((StoPDB.pid == self.prj) & (StoPDB.s_removed_on.is_null()) & (StoPDB.has_notes == False))
+                 .where((StoPDB.pid == self.prj) & (StoPDB.s_removed_on.is_null()) & (StoPDB.has_notes is False))
                  )
         results = False
 
@@ -77,7 +77,7 @@ class SqlCleanup:
 
         q = (StoPDB
                  .select()
-                 .where((StoPDB.pid == self.prj) & (StoPDB.s_removed_on.is_null()) & (StoPDB.has_notes == False))
+                 .where((StoPDB.pid == self.prj) & (StoPDB.s_removed_on.is_null()) & (StoPDB.has_notes is False))
                  )
 
         if not q.exists():
@@ -107,7 +107,7 @@ def project_select() -> ProjectID:
     prjs = []
     project = (ProjectID
                .select()
-               .where((ProjectID.project_completed == False))
+               .where((ProjectID.project_completed is False))
                )
     for prj in project:  # type: ProjectID
         print("{})\t{}".format(prj.id, prj.project_file))

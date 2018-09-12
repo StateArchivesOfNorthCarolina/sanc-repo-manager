@@ -1,4 +1,4 @@
-from move_db.MoverDBs import *
+from bulk_mover.move_db.MoverDBs import *
 from pathlib import Path
 import os
 import re
@@ -18,7 +18,7 @@ def fix_parts(project):
     query = (StoPparts
              .select(StoPparts, StoPDB)
              .join(StoPDB)
-             .where(StoPparts.lvl2 == 'AV')
+             .where(StoPparts.lvl2 is'AV')
              )
     for r in query:
         try:

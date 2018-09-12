@@ -67,33 +67,35 @@ class SqlProjectBuilder:
         self.current_stopd.save()
 
     def fix_accession_number(self, pi: PItem):
-        if len(pi.accession_number) != 9:
-            if len(pi.accession_number.split("_")) == 2:
-                return pi.accession_number
-            t = pi.accession_number[0]
-            query = (FakeAccessions.select()
-                     .where(FakeAccessions.fa_type == t)
-                     .order_by(FakeAccessions.fa_num.desc())
-                     )
-            new_acc_num = None
-            if query.exists():
-                inc = query.get()  # type: FakeAccessions
-                i = inc.fa_num
-                new_acc_num = i + 1
-            else:
-                new_acc_num = 1
+        try:
+            if len(pi.accession_number) != 9:
+                if len(pi.accession_number.split("_")) == 2:
+                    return pi.accession_number
+                t = pi.accession_number[0]
+                query = (FakeAccessions.select()
+                         .where(FakeAccessions.fa_type == t)
+                         .order_by(FakeAccessions.fa_num.desc())
+                         )
+                new_acc_num = None
+                if query.exists():
+                    inc = query.get()  # type: FakeAccessions
+                    i = inc.fa_num
+                    new_acc_num = i + 1
+                else:
+                    new_acc_num = 1
 
-            new_acc_id = None
-            if t == "F":
-                new_acc_id = t + "{0:8d}".format(new_acc_num)
-            else:
-                new_acc_id = pi.accession_number + "{0:04d}".format(new_acc_num)
+                new_acc_id = None
+                if t == "F":
+                    new_acc_id = t + "{0:8d}".format(new_acc_num)
+                else:
+                    new_acc_id = pi.accession_number + "{0:04d}".format(new_acc_num)
 
-            fa = FakeAccessions(root=self.current_stopd, fa_type=t, fa_num=new_acc_num)
-            fa.save()
-            return new_acc_id
-
-        return pi.accession_number
+                fa = FakeAccessions(root=self.current_stopd, fa_type=t, fa_num=new_acc_num)
+                fa.save()
+                return new_acc_id
+            return pi.accession_number
+        except TypeError as e:
+            return None
 
     def build_stopdb_lines(self):
         with open(self.project_file) as fh:
@@ -112,6 +114,10 @@ class SqlProjectBuilder:
         try:
             i = int(v)
             return "{0:05d}".format(i)
+        except ValueError as e:
+            if v == '':
+                return None
+            return v
         except TypeError as e:
             return v
 

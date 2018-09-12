@@ -53,7 +53,7 @@ class SqlPtoA(PMoverBase):
 
     def move(self):
         for pp in self.get_path_provider():  # type: PathProvider
-            pm = PathMunger(str(Path("P:\\", pp.item.p_root)), "T:")
+            pm = PathMunger.PathMunger(str(Path("P:\\", pp.item.p_root)), "A:")
             pbar = tqdm(total=pp.get_count(), ascii=True, desc="Converting: {}".format(pm.get_source_bag()))
             for ptaf in pp.ptaf_items:
                 self._current_pta_item = ptaf
@@ -111,7 +111,7 @@ class SqlPtoA(PMoverBase):
     def has_item_been_converted(self) -> bool:
         print("Checking for an existing path:\t{}".format(self._current_item.p_root))
         sp = Path("P:\\") / self._current_item.p_root / 'data'
-        dp = Path("T:\\") / self._current_item.p_root
+        dp = Path("A:\\") / self._current_item.p_root
         spf = 0
         dpf = 0
         for root, dirs, files in os.walk(sp):

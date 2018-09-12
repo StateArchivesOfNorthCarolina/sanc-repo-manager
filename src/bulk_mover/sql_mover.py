@@ -42,10 +42,10 @@ class SqlMover:
             if self._current_item.s_validated_on is not None:
                 return True
 
-        sb = SANCBagger(p)
-        if sb.open_bag():
+        sb = SANCBagger()
+        if sb.open_bag(p):
             print("Validating: \t{}".format(item))
-            if sb.fast_validate_bag():
+            if sb.quick_validate():
                 print("Valid.")
                 return True
         print("Not Valid.")
@@ -148,7 +148,7 @@ class SqlMover:
     def _are_all_items_completed():
         query = (StoPDB
                  .select()
-                 .where(StoPDB.completed_move == False))
+                 .where(StoPDB.completed_move is False))
         if query.exists():
             return False
         return True

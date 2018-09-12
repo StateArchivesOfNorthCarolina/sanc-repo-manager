@@ -21,6 +21,13 @@ def main():
     print(main_menu)
 
     val = input("What do you want to do? ")
+
+    try:
+        val = int(val)
+    except ValueError as e:
+        print("\n\n### Selection must be a positive integer ###")
+        main()
+
     if int(val) == 1:
         generate_index()
         main()

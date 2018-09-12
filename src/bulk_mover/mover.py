@@ -63,11 +63,14 @@ class Mover:
 
         val = input("Select a project: ")
 
-        if val.lower() != "q" or val is not None:
-            mp.set_active_project(int(val))
-            return True, mp
-        else:
-            return False, mp
+        if val.lower() == 'q':
+            sys.exit()
+
+        if val is None:
+            sys.exit()
+
+        mp.set_active_project(int(val))
+        return True, mp
 
     def run(self):
         while True:
@@ -118,7 +121,7 @@ class Cleanup:
         prjs = []
         project = (ProjectID
                    .select()
-                   .where((ProjectID.project_completed == False))
+                   .where((ProjectID.project_completed is False))
                    )
         for prj in project:  # type: ProjectID
             print("{})\t{}".format(prj.id, prj.project_file))

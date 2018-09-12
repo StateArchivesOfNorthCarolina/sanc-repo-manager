@@ -1,12 +1,14 @@
 import os
 from playhouse.migrate import *
 from peewee import *
-import pathlib
+from pathlib import Path
 
 path = os.path.abspath(__file__)
 dir_path = os.path.dirname(path)
 dir_path = os.path.join(dir_path, 'db')
-db_name = os.path.join("L:\\Intranet\\ar\\Electronic_Records\\UsersPub\\jgibson\\Holdings\\bulk_mover\\move_db\\db", 'StoPMove.db')
+
+# If you are using this from the USB stick DO CHANGE THIS
+db_name = os.path.join(dir_path, 'StoPMove.db')
 
 db = SqliteDatabase(db_name, pragmas=(('foreign_keys', 'on'),))
 
@@ -122,7 +124,7 @@ def create_tables():
 
 
 def test():
-    query = (PtoAFiles.select().where(PtoAFiles.fk == 3 & PtoAFiles.completed == False))
+    query = (PtoAFiles.select().where(PtoAFiles.fk == 3 & PtoAFiles.completed is False))
     if query.exists():
         print(query.count())
     else:

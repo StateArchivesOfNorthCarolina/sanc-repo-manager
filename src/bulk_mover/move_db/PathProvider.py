@@ -43,7 +43,7 @@ class PathProvider:
         count = PtoAFiles.select().where(PtoAFiles.fk == self.ptoadb).count()
 
         if count > 0:
-            query = PtoAFiles.select().where(PtoAFiles.fk == self.ptoadb, PtoAFiles.completed == False)
+            query = PtoAFiles.select().where(PtoAFiles.fk == self.ptoadb, PtoAFiles.completed is False)
             self._file_count = len(query)
             if self._file_count == 0:
                 self.close_item()
@@ -88,7 +88,7 @@ class PathProvider:
 
     def close_item(self):
         print("Closing: \t{}".format(self.item.p_root))
-        query = (PtoAFiles.select().where(PtoAFiles.fk == self.ptoadb, PtoAFiles.completed == False))
+        query = (PtoAFiles.select().where(PtoAFiles.fk == self.ptoadb, PtoAFiles.completed is False))
         if query.exists():
             print("There are moves not completed. Cannot close this StopDB item.")
             return
