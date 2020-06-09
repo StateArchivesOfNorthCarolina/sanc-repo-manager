@@ -80,6 +80,8 @@ class SqlCleanup:
                  .where((StoPDB.pid == self.prj) & (StoPDB.s_removed_on.is_null()) & (StoPDB.has_notes is False))
                  )
 
+        print("HELLO!!!!!!!!!!")
+
         if not q.exists():
             self.prj.project_completed = True
             self.prj.save()

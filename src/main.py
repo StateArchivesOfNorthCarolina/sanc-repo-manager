@@ -29,14 +29,14 @@ def main():
         main()
 
     if int(val) == 1:
-        generate_index()
+        generate_index() #Creates a spreadsheet of the S and corresponding P locations. It calls the database and prints the root path for the s drive and the p drive.
         main()
 
     if int(val) == 2:
-        move_s_to_p()
+        move_s_to_p() #Opens the main menu for program. Aims at mover.py
         main()
 
-    if int(val) == 3:
+    if int(val) == 3: #Exits the program
         exit(0)
 
 

@@ -14,7 +14,7 @@ from bulk_mover.sql_cleanup import SqlCleanup
 class Builder:
 
     def file_chooser(self):
-        base_path = r"L:\Intranet\ar\Digital_Services\Inventory\002_TO_BE_MOVED"
+        base_path = r"C:\Users\lospa\Downloads\Move_db_samples\Move_db_samples"
         my_files = []
         for root, dirs, files in os.walk(base_path):
             for f in files:
@@ -33,7 +33,8 @@ class Builder:
         sel = input("Which file do you want to process: ")
 
         if sel.lower() == 'q':
-            sys.exit()
+            m = Quit()
+            m.goBackToMenu()
 
         return my_files[int(sel) - 1]
 
@@ -64,10 +65,12 @@ class Mover:
         val = input("Select a project: ")
 
         if val.lower() == 'q':
-            sys.exit()
+            m = Quit()
+            m.goBackToMenu()
 
         if val is None:
-            sys.exit()
+            m = Quit()
+            m.goBackToMenu()
 
         mp.set_active_project(int(val))
         return True, mp
@@ -100,7 +103,8 @@ class PTOA:
         val = input("Select a project: ")
 
         if val.lower() == 'q':
-            sys.exit(0)
+            m = Quit()
+            m.goBackToMenu()
 
         mp.set_active_project(int(val))
         return mp
@@ -146,6 +150,12 @@ class Cleanup:
             return
 
         sqlc.check_stopdbs()
+
+class Quit:
+
+    def goBackToMenu(self): #Functions as a callable return to the main menu
+        menu = Coordinator()
+        menu.menu()
 
 
 class Coordinator:
