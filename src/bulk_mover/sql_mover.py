@@ -100,7 +100,7 @@ class SqlMover:
 
     def _try_to_bag(self):
         meta = {
-            "Contact-Name": "Jeremy Gibson",
+            "Contact-Name": "Jamie Patrick-Burns",
             "Source-Organization": "State Archives of North Carolina",
             "Internal-Sender-Identifier": "SqlMover 0.0.1"
         }
