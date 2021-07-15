@@ -144,11 +144,14 @@ class SqlMover:
             return True
         return False
 
-    @staticmethod
-    def _are_all_items_completed():
+# Took out staticmethod designation, added (self), added active_proj variable and added it to query so that this method
+# only searches for incomplete items for the current project
+    # @staticmethod
+    def _are_all_items_completed(self):
+        active_proj = int(self._mp.active_project._pk)
         query = (StoPDB
                  .select()
-                 .where(StoPDB.completed_move == False))
+                 .where((StoPDB.completed_move == False) & (StoPDB.pid == active_proj)))
         if query.exists():
             return False
         return True
