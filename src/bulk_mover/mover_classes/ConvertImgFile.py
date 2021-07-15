@@ -1,6 +1,8 @@
 from PIL import Image
+from PIL import ImageFile
 
-Image.MAX_IMAGE_PIXELS = 1000000000
+Image.MAX_IMAGE_PIXELS = None    # 1000000000 is usual maximum
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 from io import BytesIO
 import os
 import tempfile
