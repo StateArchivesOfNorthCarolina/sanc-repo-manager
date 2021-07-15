@@ -60,7 +60,7 @@ class ConvertDocumentFile(ConvertFile):
         self.base_opts.append(self.get_out_dir())
         self.base_opts.append(self.fin)
         try:
-            proc = subprocess.run(self.base_opts, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
+            proc = subprocess.run(self.base_opts, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=120)
             if proc.returncode == 0:
                 return True
         except subprocess.TimeoutExpired as e:
