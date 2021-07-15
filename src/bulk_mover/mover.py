@@ -3,6 +3,8 @@ This is now the main program.  It co-ordinates sql_project_builder, sql_mover, s
 """
 import os
 import sys
+import tkinter as tk
+from tkinter import filedialog
 from bulk_mover.sql_project_builder import SqlProjectBuilder
 from bulk_mover.move_db.move_provider import MoveProvider
 from bulk_mover.sql_mover import SqlMover
@@ -13,8 +15,11 @@ from bulk_mover.sql_cleanup import SqlCleanup
 
 class Builder:
 
-    def file_chooser(self):
-        base_path = r"C:\Users\lospa\Downloads\Move_db_samples\Move_db_samples"
+    def file_chooser(self):#Finds all the files from a move folder and preps for movement to the p drive
+        
+        base_path = getFileDirectory()
+
+        #base_path = r"C:\Users\lospa\Downloads\Move_db_samples\Move_db_samples" #CHANGE THIS TO AN ADDRESS REQUEST
         my_files = []
         for root, dirs, files in os.walk(base_path):
             for f in files:
@@ -33,8 +38,7 @@ class Builder:
         sel = input("Which file do you want to process: ")
 
         if sel.lower() == 'q':
-            m = Quit()
-            m.goBackToMenu()
+           goBackToMenu()
 
         return my_files[int(sel) - 1]
 
@@ -42,15 +46,16 @@ class Builder:
         val = self.file_chooser()
         if val is None:
             return
-        sqlpbldr = SqlProjectBuilder(val)
+        sqlpbldr = SqlProjectBuilder(val)#Located in sql_project_builder.py
         sqlpbldr.create_project()
-        sqlpbldr.build_stopdb_lines()
+        #sqlpbldr.build_stopdb_lines() Moved this into the create_project function inside of sql_project_builder
+        goBackToMenu()
 
 
 class Mover:
 
     def file_chooser(self):
-        mp = MoveProvider()
+        mp = MoveProvider()#points at move_provider.py
         op = mp.set_open_projects(mp.STOP)
         c = 1
         if len(op) == 0:
@@ -65,12 +70,10 @@ class Mover:
         val = input("Select a project: ")
 
         if val.lower() == 'q':
-            m = Quit()
-            m.goBackToMenu()
+            goBackToMenu()
 
         if val is None:
-            m = Quit()
-            m.goBackToMenu()
+            goBackToMenu()
 
         mp.set_active_project(int(val))
         return True, mp
@@ -80,7 +83,7 @@ class Mover:
             stp, mp = self.file_chooser()
             if stp:
                 print()
-                sqlmvr = SqlMover(mp)
+                sqlmvr = SqlMover(mp) #references in sql_mover.py
                 sqlmvr.move_items()
                 print()
                 print()
@@ -103,8 +106,7 @@ class PTOA:
         val = input("Select a project: ")
 
         if val.lower() == 'q':
-            m = Quit()
-            m.goBackToMenu()
+            goBackToMenu()
 
         mp.set_active_project(int(val))
         return mp
@@ -144,19 +146,16 @@ class Cleanup:
         return pro
 
     def run(self):
-        sqlc = SqlCleanup(self.project_select())
+        #adjusted this file to fail gracefully back to menu instead of hard crash.
+        #file checks if the program found any items to be cleaned up. If not, it returns to the menu otherwise it runs the cleanup program.
+        sqlc = self.project_select()
 
         if sqlc is None:
             return
 
+        sqlc = SqlCleanup(sqlc)
+
         sqlc.check_stopdbs()
-
-class Quit:
-
-    def goBackToMenu(self): #Functions as a callable return to the main menu
-        menu = Coordinator()
-        menu.menu()
-
 
 class Coordinator:
 
@@ -198,3 +197,16 @@ class Coordinator:
 if __name__ == '__main__':
     coord = Coordinator()
     coord.menu()
+
+def getFileDirectory(): # Sets up file directory window to allow path selection
+    root = tk.Tk()
+    root.withdraw()
+
+    directoryLocation = filedialog.askdirectory(parent=root, title='Choose directory where files are located')
+    root.destroy()
+
+    return directoryLocation
+
+def goBackToMenu(): #Functions as a callable return to the main menu
+        menu = Coordinator()
+        menu.menu()

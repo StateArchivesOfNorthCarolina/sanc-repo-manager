@@ -1,8 +1,13 @@
 import sys
+import tkinter as tk
+
+from tkinter import filedialog
 from pathlib import Path
 from bulk_mover.move_db.MoverDBs import *
 from datetime import datetime
 from bulk_mover.mover_classes.Item import PItem
+from bulk_mover.mover import *
+
 
 
 class SqlProjectBuilder:
@@ -18,6 +23,7 @@ class SqlProjectBuilder:
         try:
             self.current_projid, created = ProjectID.get_or_create(project_file=self.project_file,
                                                                project_added=datetime.now())  # type: ProjectID
+            self.build_stopdb_lines()
         except IntegrityError as e:
             print("This file is already a project:\t{}".format(self.project_file))
             self.move_project_file()
@@ -106,9 +112,14 @@ class SqlProjectBuilder:
         self.move_project_file()
 
     def move_project_file(self):
-        tg = Path(r"L:\Intranet\ar\Digital_Services\Inventory\000_ORIGINALS", self.project_file.name)
+        root = tk.Tk()
+        root.withdraw()
+
+        directoryLocation = filedialog.askdirectory(parent=root, title='Choose directory where files should be moved')
+        root.destroy()
+
+        tg = Path(directoryLocation, self.project_file.name)#Allows the user to select the output location for the files that are moved. Originally was L:\\Originals
         self.project_file.rename(tg)
-        sys.exit()
 
     def get_padded_value(self, v):
         try:
@@ -123,7 +134,8 @@ class SqlProjectBuilder:
 
 
 def file_chooser():
-    base_path = r"L:\Intranet\ar\Digital_Services\Inventory\002_TO_BE_MOVED"
+    base_path = getFileDirectory();
+    #base_path = r"L:\Intranet\ar\Digital_Services\Inventory\002_TO_BE_MOVED"#CHANGE THIS TO AN ADDRESS REQUEST
     my_files = []
     for root, dirs, files in os.walk(base_path):
         for f in files:
