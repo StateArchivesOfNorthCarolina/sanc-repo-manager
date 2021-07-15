@@ -19,7 +19,8 @@ class PathMunger:
                     '.pst': 'sanc_no_access/plain',
                     '.xlsx': None,
                     '.jpg': None,
-                    '.jpeg': None
+                    '.jpeg': None,
+                    '.mp4': None
                     }
 
     IMAGE = 0
