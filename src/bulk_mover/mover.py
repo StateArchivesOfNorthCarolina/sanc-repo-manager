@@ -127,8 +127,8 @@ class Cleanup:
         prjs = []
         project = (ProjectID
                    .select()
-                   .where((ProjectID.project_completed is False))
-                   )
+                   .where((ProjectID.project_completed == False))
+                   ) #This query requires '==' instead of 'is False'
         for prj in project:  # type: ProjectID
             print("{})\t{}".format(prj.id, prj.project_file))
             prjs.append(prj)

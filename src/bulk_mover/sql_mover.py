@@ -148,7 +148,7 @@ class SqlMover:
     def _are_all_items_completed():
         query = (StoPDB
                  .select()
-                 .where(StoPDB.completed_move is False))
+                 .where(StoPDB.completed_move == False))
         if query.exists():
             return False
         return True
