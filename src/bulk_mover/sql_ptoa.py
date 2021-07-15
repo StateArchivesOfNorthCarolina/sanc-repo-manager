@@ -69,7 +69,7 @@ class SqlPtoA(PMoverBase):
                     continue
 
                 ext = pi.suffix
-                if len(ext) < 4 or len(ext) > 5:
+                if len(ext) < 4 or len(ext) > 5: #Checking the length of the the file extension. If extension is not 4 characters then complete transfer because we won't be able to tell what the filetype is.
                     # Extension will not be determinable go ahead and copy
                     if pm.do_a_copy():
                         self._write_success(pm)

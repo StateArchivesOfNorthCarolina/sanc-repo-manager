@@ -3,8 +3,8 @@ from bulk_mover.move_db.MoverDBs import StoPDB
 
 
 def stop_index_report():
-    p = Path("a_drive_index.tsv")
-    if not p.exists():
+    p = Path("a_drive_index.tsv") #fileName for report
+    if not p.exists(): #Check to see if file already exists, and if it does not, create it
         p.touch()
 
     q = (StoPDB

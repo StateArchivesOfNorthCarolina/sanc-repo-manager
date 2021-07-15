@@ -180,7 +180,7 @@ class PMover(PMoverBase):
     def __init__(self, source_file: str=None, drivel: str=None) -> None:
         self._build_basic_logger()
         self.logger = logging.getLogger("AMover")
-        self.source_file = open(os.path.join("L:\\Intranet\\ar\Digital_Services\\Inventory\\004_COMPLETED", source_file), 'r')
+        self.source_file = open(os.path.join("L:\\Intranet\\ar\\Digital_Services\\Inventory\\004_COMPLETED", source_file), 'r')
         s = source_file.split(".")[0]
         self.success_move = open("L:\\Intranet\\ar\\Digital_Services\\Inventory\\005_A_COMPLETE\\{}.tsv"
                                  .format(s), 'w')
